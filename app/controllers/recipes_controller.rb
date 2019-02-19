@@ -16,6 +16,16 @@ class RecipesController < ApplicationController
     redirect_to @recipe
   end
 
+  def edit
+    @recipe = Recipe.find(params[:id])
+  end
+
+  def update
+    r = Recipe.find(params[:id])
+    r.update(recipe_params)
+    redirect_to r
+  end
+
   private
 
   def recipe_params
