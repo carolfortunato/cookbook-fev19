@@ -8,6 +8,7 @@ class RecipesController < ApplicationController
   end
 
   def new
+    @recipe_type = RecipeType.all
     @recipe = Recipe.new
   end
 
@@ -16,12 +17,14 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to @recipe    
     else
-      flash[:notice] = 'Você não pode criar uma receita com tempo de preparo igual menor que 1 minuto'
+      @recipe_type = RecipeType.all
+      flash[:notice] = 'Não foi possível salvar a receita'
       render 'new'
     end
   end
 
   def edit
+    @recipe_type = RecipeType.all
     @recipe = Recipe.find(params[:id])
   end
 
@@ -30,6 +33,7 @@ class RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       redirect_to @recipe    
     else
+      @recipe_type = RecipeType.all
       render 'edit'
     end
   end
@@ -37,7 +41,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :recipe_type, :cuisine, :difficulty,
+    params.require(:recipe).permit(:title, :recipe_type_id, :cuisine, :difficulty,
                                    :cook_time, :ingredients, :cook_method)
   end
 end

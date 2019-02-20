@@ -1,8 +1,8 @@
 <%= form_for(recipe) do |f| %>
   <%= f.label :title, 'Título' %>
   <%= f.text_field :title %>
-  <%= f.label :recipe_type, 'Tipo da Receita' %>
-  <%= f.text_field :recipe_type %>
+  <%= f.label :recipe_type_id, 'Tipo da Receita' %>
+  <%= f.collection_select :recipe_type_id, @recipe_type, :id, :name%>
   <%= f.label :cuisine, 'Cozinha' %>
   <%= f.text_field :cuisine %>
   <%= f.label :difficulty, 'Dificuldade' %>
