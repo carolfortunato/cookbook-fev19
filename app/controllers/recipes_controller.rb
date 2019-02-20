@@ -12,8 +12,13 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.create(recipe_params)
-    redirect_to @recipe
+    @recipe = Recipe.new(recipe_params)
+    if @recipe.save
+      redirect_to @recipe    
+    else
+      flash[:notice] = 'Você não pode criar uma receita com tempo de preparo igual menor que 1 minuto'
+      render 'new'
+    end
   end
 
   def edit
@@ -21,9 +26,12 @@ class RecipesController < ApplicationController
   end
 
   def update
-    r = Recipe.find(params[:id])
-    r.update(recipe_params)
-    redirect_to r
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      redirect_to @recipe    
+    else
+      render 'edit'
+    end
   end
 
   private

@@ -1,1 +1,5 @@
 <%= render partial: "form", locals: {recipe: @recipe} %>
+
+<% if @recipe.errors.any? %>
+  <p>Você deve informar todos os dados da receita</p>
+<%end%>
