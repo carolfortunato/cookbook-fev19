@@ -4,8 +4,9 @@ feature 'Visitor view recipe details' do
   scenario 'successfully' do
     #cria os dados necessários
     recipe_type = RecipeType.create(name: 'Sobremesa')
+    cuisine = Cuisine.create(name: 'Brasileira')
     recipe = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
-                           cuisine: 'Brasileira', difficulty: 'Médio',
+                           cuisine: cuisine, difficulty: 'Médio',
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, cenoura',
                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
@@ -18,7 +19,7 @@ feature 'Visitor view recipe details' do
     expect(page).to have_css('h1', text: recipe.title)
     expect(page).to have_css('h3', text: 'Detalhes')
     expect(page).to have_css('p', text: recipe.recipe_type.name)
-    expect(page).to have_css('p', text: recipe.cuisine)
+    expect(page).to have_css('p', text: recipe.cuisine.name)
     expect(page).to have_css('p', text: recipe.difficulty)
     expect(page).to have_css('p', text: "#{recipe.cook_time} minutos")
     expect(page).to have_css('h3', text: 'Ingredientes')
@@ -30,8 +31,9 @@ feature 'Visitor view recipe details' do
   scenario 'and return to recipe list' do
     #cria os dados necessários
     recipe_type = RecipeType.create(name: 'Sobremesa')
+    cuisine = Cuisine.create(name: 'Brasileira')
     recipe = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
-                           cuisine: 'Brasileira', difficulty: 'Médio',
+                           cuisine: cuisine, difficulty: 'Médio',
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, cenoura',
                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
