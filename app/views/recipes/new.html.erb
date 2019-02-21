@@ -1,6 +1,1 @@
-<%= flash[:notice] %>
 <%= render partial: "form", locals: {recipe: @recipe} %>
-
-<% if @recipe.errors.any? %>
-  <p>Não foi possível salvar a receita</p>
-<%end%>

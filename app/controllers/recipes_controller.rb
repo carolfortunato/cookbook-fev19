@@ -20,7 +20,7 @@ class RecipesController < ApplicationController
     else
       @recipe_type = RecipeType.all
       @cuisine = Cuisine.all
-      flash[:notice] = 'Não foi possível salvar a receita'
+      show_error
       render 'new'
     end
   end
@@ -38,6 +38,7 @@ class RecipesController < ApplicationController
     else
       @cuisine = Cuisine.all
       @recipe_type = RecipeType.all
+      show_error
       render 'edit'
     end
   end
@@ -47,5 +48,9 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id, :difficulty,
                                    :cook_time, :ingredients, :cook_method)
+  end
+
+  def show_error
+    flash[:notice] = 'Não foi possível salvar a receita'
   end
 end
