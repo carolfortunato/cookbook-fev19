@@ -51,6 +51,7 @@ feature 'User update recipe' do
     fill_in 'Como Preparar', with: ''
     click_on 'Enviar'
 
+
     expect(page).to have_content('Não foi possível salvar a receita')
   end
 end
