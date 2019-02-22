@@ -23,7 +23,7 @@ feature 'User update recipe' do
     fill_in 'Tempo de Preparo', with: '45'
     fill_in 'Ingredientes', with: 'Cenoura, farinha, ovo, oleo de soja e chocolate'
     fill_in 'Como Preparar', with: 'Faça um bolo e uma cobertura de chocolate'
-
+    attach_file 'Foto', Rails.root.join('spec', 'support', 'bolo_de_cenoura.jpg')
     click_on 'Enviar'
 
     expect(page).to have_css('h1', text: 'Bolo de cenoura')
@@ -34,6 +34,7 @@ feature 'User update recipe' do
     expect(page).to have_css('p', text: '45 minutos')
     expect(page).to have_css('p', text:  'Cenoura, farinha, ovo, oleo de soja e chocolate')
     expect(page).to have_css('p', text: 'Faça um bolo e uma cobertura de chocolate')
+    expect(page).to have_css('img[src*="bolo_de_cenoura.jpg"]')
   end
 
   scenario 'and must fill in all fields' do

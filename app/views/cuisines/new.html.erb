@@ -1,0 +1,11 @@
+<%=flash[:notice]%>
+<%if @cuisine.errors.any?%>
+  <% @cuisine.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+<%end%>
+<%= form_for(@cuisine) do |f| %>
+  <%= f.label :name, 'Nome' %>
+  <%= f.text_field :name %>
+  <%= f.submit 'Enviar' %>
+<%end%>

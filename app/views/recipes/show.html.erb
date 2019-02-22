@@ -1,3 +1,7 @@
+<%if @recipe.photo.attached? %>
+  <%= image_tag @recipe.photo %>
+<%end%>
+
 <h1><%= @recipe.title %></h1>
 <h3>Detalhes</h3>
 <p><%= @recipe.recipe_type.name %></p>
@@ -9,4 +13,5 @@
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
 <%= link_to 'Editar', edit_recipe_path %>
+<%= link_to 'Remover', recipe_path, method: :delete %>
 <%= link_to 'Voltar', root_path %>

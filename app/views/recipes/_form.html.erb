@@ -14,5 +14,7 @@
   <%= f.text_area :ingredients %>
   <%= f.label :cook_method, 'Como Preparar' %>
   <%= f.text_area :cook_method %>
+  <%= f.label :photo, 'Foto' %>
+  <%= f.file_field :photo %>
   <%= f.submit 'Enviar' %>
 <%end%>
