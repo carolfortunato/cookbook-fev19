@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.last(6)
   end
 
   def show
@@ -52,6 +52,18 @@ class RecipesController < ApplicationController
 
   def search
     @recipes = Recipe.where('title like ?', "%#{params[:q]}%")
+  end
+
+  def favorite
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(favorite: true)
+    redirect_to @recipe
+  end
+
+  def unfavorite
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(favorite: false)
+    redirect_to @recipe
   end
 
   private
