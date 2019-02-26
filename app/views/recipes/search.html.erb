@@ -1,0 +1,10 @@
+<h1>Resultados da busca</h1>
+
+<% if @recipes.count == 0 %>
+  <p>Não foram encontradas receitas com esse termo</p>
+<%end%>
+
+
+<% @recipes.each do |recipe| %>
+  <p><%= link_to recipe.title, recipe %></p>
+<% end%>
