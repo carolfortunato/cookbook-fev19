@@ -16,10 +16,9 @@
       <li><%= recipe.cook_time_min %></li>
     </ul>
   </div>
-  <% if @recipes.count > 6%>
-  <p> <%= %>
-  </p>
-   
-  <% end %>
+
 <% end %>
 
+<% if @recipes.count > 6%>
+  <p> <%= link_to 'Ver todas', show_all_recipes_path %> </p>
+<% end %>
