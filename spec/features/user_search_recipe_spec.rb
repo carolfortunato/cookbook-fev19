@@ -58,6 +58,7 @@ feature 'visitor search term' do
     expect(page).to have_css('h1', text: 'Resultados da busca')
     expect(page).to have_link('Bolo de cenoura')
     expect(page).to have_link('Bolo de fubá')
-    expect(page).to have_selector('p', count: 2)
+
+    expect(page).to have_css('p.search-result', count: 2)
   end
 end
