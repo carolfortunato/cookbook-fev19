@@ -27,6 +27,8 @@ feature 'Visitor visit homepage' do
     expect(page).to have_css('li', text: recipe.cuisine.name)
     expect(page).to have_css('li', text: recipe.difficulty)
     expect(page).to have_css('li', text: "#{recipe.cook_time} minutos")
+    expect(page).not_to have_link('Ver todas')
+    
   end
 
   scenario 'and view recipes list' do
@@ -81,5 +83,6 @@ feature 'Visitor visit homepage' do
     # expectativas do usuário após a ação
     expect(page).to have_css('div.recipe', count: 6)
     expect(page).not_to have_css('h1', text: recipe1.title)
+    expect(page).to have_link('Ver todas')
   end
 end

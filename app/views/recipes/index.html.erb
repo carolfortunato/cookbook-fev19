@@ -6,7 +6,7 @@
 <%= link_to 'Cadastrar tipo de cozinha', new_cuisine_path %> <br>
 
 
-<% @recipes.each do |recipe| %>
+<% @recipes.last(6).each do |recipe| %>
   <div class="recipe">
     <h1><%= link_to recipe.title, recipe %></h1>
     <ul>
@@ -16,4 +16,10 @@
       <li><%= recipe.cook_time_min %></li>
     </ul>
   </div>
+  <% if @recipes.count > 6%>
+  <p> <%= %>
+  </p>
+   
+  <% end %>
 <% end %>
+
