@@ -14,6 +14,7 @@ feature 'User Log in' do
     expect(page).to have_css('p', text:'Olá, carol@gmail.com')
     expect(page).to have_link('Sair')
     expect(page).not_to have_link ('Entrar')
+    expect(current_path).to eq(root_path)
   end
 
   scenario 'User log out' do
@@ -30,5 +31,6 @@ feature 'User Log in' do
     expect(page).to have_link ('Entrar')
     expect(page).not_to have_css('p', text:'Olá, carol@gmail.com')
     expect(page).not_to have_link('Sair')
+    expect(current_path).to eq(root_path)
   end
 end

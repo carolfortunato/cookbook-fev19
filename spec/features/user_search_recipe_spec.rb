@@ -2,10 +2,11 @@ require 'rails_helper'
 
 feature 'visitor search term' do
   scenario 'successfully with exact term' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
-    recipe = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
-                           cuisine: cuisine, difficulty: 'Médio',
+    recipe = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
+                           cuisine: cuisine, difficulty: 'Médio', user: user,
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, cenoura',
                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
@@ -19,10 +20,11 @@ feature 'visitor search term' do
   end
 
   scenario 'no recipe found with term' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
-    recipe = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
-                           cuisine: cuisine, difficulty: 'Médio',
+    recipe = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
+                           cuisine: cuisine, difficulty: 'Médio', user: user,
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, cenoura',
                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
@@ -37,16 +39,17 @@ feature 'visitor search term' do
   end
 
   scenario 'suceessfully found more than one recipe with keyword' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
-    recipe1 = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
-                           cuisine: cuisine, difficulty: 'Médio',
+    recipe1 = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
+                           cuisine: cuisine, difficulty: 'Médio', user: user,
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, cenoura',
                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
 
     recipe2 = Recipe.create(title: 'Bolo de fubá', recipe_type: recipe_type,
-                           cuisine: cuisine, difficulty: 'Médio',
+                           cuisine: cuisine, difficulty: 'Médio', user: user,
                            cook_time: 60,
                            ingredients: 'Farinha, açucar, fubá',
                            cook_method: 'Pega o fubá, misture com o restante dos ingredientes')

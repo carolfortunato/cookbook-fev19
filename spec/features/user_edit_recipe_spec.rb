@@ -1,17 +1,35 @@
 require 'rails_helper'
 
 feature 'User update recipe' do
-  scenario 'successfully' do
+  scenario 'unlogged user don`t see button editar receita' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     cuisine = Cuisine.create(name: 'Brasileira')
     Cuisine.create(name: 'Arabe')
-    Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
+    Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio', user: user,
+                  recipe_type: recipe_type, cuisine: cuisine,
+                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
+                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+
+    visit root_path
+    click_on 'Bolodecenoura'
+    expect(page).not_to have_link 'Editar'
+  end
+
+  scenario 'successfully' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
+    recipe_type = RecipeType.create(name: 'Sobremesa')
+    RecipeType.create(name: 'Entrada')
+    cuisine = Cuisine.create(name: 'Brasileira')
+    Cuisine.create(name: 'Arabe')
+    Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio', user: user,
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
 
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'
@@ -38,14 +56,17 @@ feature 'User update recipe' do
   end
 
   scenario 'and must fill in all fields' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
-    Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
+    Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio', user: user,
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
-
+    
+  
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'

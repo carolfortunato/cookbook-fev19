@@ -1,16 +1,31 @@
 require 'rails_helper'
 
 feature 'User register recipe' do
+  scenario 'unlogged user don`t see button enviar receita' do
+    visit root_path
+    expect(page).not_to have_link 'Enviar uma receita'
+  end
+
+  scenario 'unlogged user don`t see new recipe page' do
+    visit new_recipe_path
+
+    expect(current_path).to eq(new_user_session_path)
+  end
+  
   scenario 'successfully' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
     RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     Cuisine.create(name: 'Arabe')
 
     # simula a ação do usuário
     visit root_path
+    click_on 'Entrar'
+    fill_in 'Email', with: 'carol@gmail.com'
+    fill_in 'Senha', with: 'banana'
+    click_on 'Logar'
     click_on 'Enviar uma receita'
-
     fill_in 'Título', with: 'Tabule'
     select 'Entrada', from: 'Tipo da Receita'
     select 'Arabe', from: 'Cozinha'
@@ -34,13 +49,18 @@ feature 'User register recipe' do
     expect(page).to have_css('h3', text: 'Como Preparar')
     expect(page).to have_css('p', text:  'Misturar tudo e servir. Adicione limão a gosto.')
     expect(page).to have_css('img[src*="Tabule.jpg"]')
+    expect(page).to have_css('p', text:  "Receita enviada por #{user.email}")
   end
 
   scenario 'and must fill in all fields' do
+    User.create!(email: 'carol@gmail.com', password:'banana')
     # simula a ação do usuário
     visit root_path
+    click_on 'Entrar'
+    fill_in 'Email', with: 'carol@gmail.com'
+    fill_in 'Senha', with: 'banana'
+    click_on 'Logar'
     click_on 'Enviar uma receita'
-
     fill_in 'Título', with: ''
     fill_in 'Dificuldade', with: ''
     fill_in 'Tempo de Preparo', with: ''

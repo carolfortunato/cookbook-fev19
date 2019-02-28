@@ -1,7 +1,10 @@
 <h1>CookBook</h1>
 <p>Bem-vindo ao maior livro de receitas online</p>
 
-<%= link_to 'Enviar uma receita', new_recipe_path %> <br>
+<% if user_signed_in?%>
+  <%= link_to 'Enviar uma receita', new_recipe_path %> <br>
+<% end %>
+
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %> <br>
 <%= link_to 'Cadastrar tipo de cozinha', new_cuisine_path %> <br>
 
