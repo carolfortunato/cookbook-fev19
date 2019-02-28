@@ -1,6 +1,40 @@
 require 'rails_helper'
 
 feature 'User update recipe' do
+  scenario 'unlogged user don`t see edit recipe page' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
+    recipe_type = RecipeType.create(name: 'Sobremesa')
+    RecipeType.create(name: 'Entrada')
+    cuisine = Cuisine.create(name: 'Brasileira')
+    Cuisine.create(name: 'Arabe')
+    recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio', user: user,
+                  recipe_type: recipe_type, cuisine: cuisine,
+                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
+                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+    
+    visit edit_recipe_path(recipe.id)
+    expect(current_path).to eq(new_user_session_path)
+  end
+
+  scenario 'only owner can see edit recipe page' do
+    user = User.create!(email: 'carol@gmail.com', password:'banana')
+    recipe_type = RecipeType.create(name: 'Sobremesa')
+    RecipeType.create(name: 'Entrada')
+    cuisine = Cuisine.create(name: 'Brasileira')
+    Cuisine.create(name: 'Arabe')
+    recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio', user: user,
+                  recipe_type: recipe_type, cuisine: cuisine,
+                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
+                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+    
+    user2 = User.create!(email: 'bruno@gmail.com', password:'abacate')
+    
+    login_as(user2, scope: :user)
+    visit edit_recipe_path(recipe)
+    
+    expect(current_path).to eq(root_path)
+  end
+
   scenario 'unlogged user don`t see button editar receita' do
     user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')

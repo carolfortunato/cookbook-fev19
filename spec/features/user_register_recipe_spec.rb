@@ -8,7 +8,6 @@ feature 'User register recipe' do
 
   scenario 'unlogged user don`t see new recipe page' do
     visit new_recipe_path
-
     expect(current_path).to eq(new_user_session_path)
   end
   

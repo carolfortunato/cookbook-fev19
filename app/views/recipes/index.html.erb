@@ -3,6 +3,7 @@
 
 <% if user_signed_in?%>
   <%= link_to 'Enviar uma receita', new_recipe_path %> <br>
+  <%= link_to 'Minhas Receitas', my_recipes_path%>
 <% end %>
 
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %> <br>
@@ -22,6 +23,6 @@
 
 <% end %>
 
-<% if @recipes.count > 6%>
+<% if @recipes.size > 6%>
   <p> <%= link_to 'Ver todas', show_all_recipes_path %> </p>
 <% end %>
