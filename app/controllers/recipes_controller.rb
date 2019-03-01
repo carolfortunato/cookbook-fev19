@@ -2,6 +2,7 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :my_recipes]
   def index
     @recipes = Recipe.all
+    @lists = current_user.lists if user_signed_in?
   end
 
   def show_all

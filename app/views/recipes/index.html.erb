@@ -4,6 +4,13 @@
 <% if user_signed_in?%>
   <%= link_to 'Enviar uma receita', new_recipe_path %> <br>
   <%= link_to 'Minhas Receitas', my_recipes_path%>
+   
+  <%= form_tag(lists_path, method: "get") do %>
+    <%= label_tag(:list_id, "Minhas listas") %>
+    <%=select_tag(:list_id, options_from_collection_for_select(@lists, :id, :name))%>
+    <%= submit_tag("Ver Lista") %>
+  <% end %>
+
 <% end %>
 
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %> <br>

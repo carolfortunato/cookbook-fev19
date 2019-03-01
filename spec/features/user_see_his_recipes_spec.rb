@@ -4,7 +4,6 @@ feature "User see My Recipes list only with his recipes" do
   scenario "successfully" do
     user = User.create!(email: 'carol@gmail.com', password:'banana')
     recipe_type = RecipeType.create(name: 'Sobremesa')
-    RecipeType.create(name: 'Entrada')
     cuisine = Cuisine.create(name: 'Brasileira')
     Cuisine.create(name: 'Arabe')
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio', user: user,

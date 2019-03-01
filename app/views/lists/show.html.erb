@@ -1,0 +1,7 @@
+<p> <%= link_to 'Voltar para home', root_path%> </p>
+
+<% @list.recipes.each do |recipe| %>
+  <div class="recipe">
+    <h1><%= link_to recipe.title, recipe %></h1>
+  </div>
+<% end %>

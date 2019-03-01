@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get 'my_recipes', to:'recipes#my_recipes'
   resources :recipe_types
   resources :cuisines
+  resources :lists
 end
