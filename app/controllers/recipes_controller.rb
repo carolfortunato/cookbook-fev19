@@ -23,6 +23,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user = current_user
     if @recipe.save
+      #RecipesMailer.with(recipe_id: @recipe.id).notify_new_recipe -> Método novo
+      RecipesMailer.notify_new_recipe(@recipe.id)
       redirect_to @recipe    
     else
       @recipe_type = RecipeType.all
